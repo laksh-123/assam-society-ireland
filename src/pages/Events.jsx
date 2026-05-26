@@ -87,7 +87,7 @@ export default function Events() {
           >
             <span className="section-label">Upcoming</span>
             <h2 style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.4rem)', color: 'var(--cream)' }}>
-              2025 Programme
+              Programme
             </h2>
           </motion.div>
 
