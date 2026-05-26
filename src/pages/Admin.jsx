@@ -116,28 +116,51 @@ function EventForm({ form, setForm, onSave }) {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '80px 130px 90px 1fr', gap: '16px' }}>
-            <div style={field}>
-              <label style={lbl}>Day</label>
-              <input style={inp} value={data.date.day} onChange={e => setDate('day', e.target.value)} placeholder="13" maxLength="2" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={!!data.date.tbd}
+                onChange={e => setDate('tbd', e.target.checked)}
+                style={{ accentColor: 'var(--gold)', width: '15px', height: '15px' }}
+              />
+              <span style={{ ...lbl, margin: 0 }}>Date TBD</span>
+            </label>
+          </div>
+
+          {!data.date.tbd && (
+            <div style={{ display: 'grid', gridTemplateColumns: '80px 130px 90px 1fr', gap: '16px' }}>
+              <div style={field}>
+                <label style={lbl}>Day</label>
+                <input style={inp} value={data.date.day} onChange={e => setDate('day', e.target.value)} placeholder="13" maxLength="2" />
+              </div>
+              <div style={field}>
+                <label style={lbl}>Month</label>
+                <select style={inp} value={data.date.month} onChange={e => setDate('month', e.target.value)}>
+                  {MONTHS.map(m => <option key={m} value={m}>{m}</option>)}
+                </select>
+              </div>
+              <div style={field}>
+                <label style={lbl}>Year</label>
+                <input style={inp} value={data.date.year} onChange={e => setDate('year', e.target.value)} placeholder="2025" maxLength="4" />
+              </div>
+              <div style={field}>
+                <label style={lbl}>Tag</label>
+                <select style={inp} value={data.tag} onChange={e => set('tag', e.target.value)}>
+                  {TAGS.map(t => <option key={t} value={t}>{t}</option>)}
+                </select>
+              </div>
             </div>
-            <div style={field}>
-              <label style={lbl}>Month</label>
-              <select style={inp} value={data.date.month} onChange={e => setDate('month', e.target.value)}>
-                {MONTHS.map(m => <option key={m} value={m}>{m}</option>)}
-              </select>
-            </div>
-            <div style={field}>
-              <label style={lbl}>Year</label>
-              <input style={inp} value={data.date.year} onChange={e => setDate('year', e.target.value)} placeholder="2025" maxLength="4" />
-            </div>
-            <div style={field}>
+          )}
+
+          {data.date.tbd && (
+            <div style={{ ...field, maxWidth: '200px' }}>
               <label style={lbl}>Tag</label>
               <select style={inp} value={data.tag} onChange={e => set('tag', e.target.value)}>
                 {TAGS.map(t => <option key={t} value={t}>{t}</option>)}
               </select>
             </div>
-          </div>
+          )}
 
           <div style={field}>
             <label style={lbl}>Location</label>
@@ -180,7 +203,15 @@ function EventForm({ form, setForm, onSave }) {
 }
 
 // ── UpcomingRow ──────────────────────────────────────────────
-function UpcomingRow({ event, onEdit, onDelete }) {
+const arrowBtn = (disabled) => ({
+  background: 'none', border: '1px solid var(--border)', borderRadius: '3px',
+  color: disabled ? 'rgba(255,255,255,0.15)' : 'var(--text-muted)',
+  cursor: disabled ? 'default' : 'pointer',
+  fontSize: '0.75rem', padding: '5px 8px', lineHeight: 1,
+  pointerEvents: disabled ? 'none' : 'auto',
+})
+
+function UpcomingRow({ event, onEdit, onDelete, onMove, onMoveUp, onMoveDown, isFirst, isLast }) {
   return (
     <div style={{
       background: 'var(--bg)', padding: '20px 28px',
@@ -188,15 +219,26 @@ function UpcomingRow({ event, onEdit, onDelete }) {
       gap: '24px', alignItems: 'center',
     }}>
       <div style={{ textAlign: 'center' }}>
-        <span style={{
-          display: 'block', fontFamily: 'var(--font-serif)',
-          fontSize: '2rem', color: 'var(--gold)', lineHeight: 1,
-        }}>
-          {event.date.day}
-        </span>
-        <span style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
-          {event.date.month} {event.date.year}
-        </span>
+        {event.date.tbd ? (
+          <span style={{
+            display: 'block', fontFamily: 'var(--font-serif)',
+            fontSize: '1.1rem', color: 'var(--gold)', lineHeight: 1, letterSpacing: '0.05em',
+          }}>
+            TBD
+          </span>
+        ) : (
+          <>
+            <span style={{
+              display: 'block', fontFamily: 'var(--font-serif)',
+              fontSize: '2rem', color: 'var(--gold)', lineHeight: 1,
+            }}>
+              {event.date.day}
+            </span>
+            <span style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
+              {event.date.month} {event.date.year}
+            </span>
+          </>
+        )}
       </div>
       <div>
         <p style={{ fontFamily: 'var(--font-serif)', fontSize: '1.05rem', color: 'var(--cream)', marginBottom: '4px' }}>
@@ -207,7 +249,12 @@ function UpcomingRow({ event, onEdit, onDelete }) {
           {event.tag && <> · <span style={{ color: 'rgba(196,149,58,0.7)' }}>{event.tag}</span></>}
         </p>
       </div>
-      <div style={{ display: 'flex', gap: '8px' }}>
+      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+          <button onClick={onMoveUp} style={arrowBtn(isFirst)} title="Move up">▲</button>
+          <button onClick={onMoveDown} style={arrowBtn(isLast)} title="Move down">▼</button>
+        </div>
+        <button onClick={onMove} style={btn('ghost')} title="Move to Past Events">→ Past</button>
         <button onClick={onEdit} style={btn('ghost')}>Edit</button>
         <button onClick={onDelete} style={btn('danger')}>Delete</button>
       </div>
@@ -216,7 +263,7 @@ function UpcomingRow({ event, onEdit, onDelete }) {
 }
 
 // ── PastRow ──────────────────────────────────────────────────
-function PastRow({ event, onEdit, onDelete }) {
+function PastRow({ event, onEdit, onDelete, onMove, onMoveUp, onMoveDown, isFirst, isLast }) {
   return (
     <div style={{
       display: 'flex', alignItems: 'center', gap: '24px',
@@ -229,7 +276,12 @@ function PastRow({ event, onEdit, onDelete }) {
         {event.title}
       </p>
       <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{event.location}</span>
-      <div style={{ display: 'flex', gap: '8px' }}>
+      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+          <button onClick={isFirst ? undefined : onMoveUp} style={arrowBtn(isFirst)} title="Move up">▲</button>
+          <button onClick={isLast ? undefined : onMoveDown} style={arrowBtn(isLast)} title="Move down">▼</button>
+        </div>
+        <button onClick={onMove} style={btn('ghost')} title="Move to Upcoming Events">← Upcoming</button>
         <button onClick={onEdit} style={btn('ghost')}>Edit</button>
         <button onClick={onDelete} style={btn('danger')}>Delete</button>
       </div>
@@ -321,6 +373,34 @@ export default function Admin() {
     fetchEvents()
   }
 
+  async function reorderEvent(section, id, direction) {
+    const list = [...events[section]]
+    const idx = list.findIndex(e => e.id === id)
+    const next = direction === 'up' ? idx - 1 : idx + 1
+    if (next < 0 || next >= list.length) return
+    ;[list[idx], list[next]] = [list[next], list[idx]]
+    await fetch(`/api/events/${section}/reorder`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ids: list.map(e => e.id) }),
+    })
+    fetchEvents()
+  }
+
+  async function moveEvent(section, event) {
+    const dest = section === 'upcoming' ? 'past' : 'upcoming'
+    if (!confirm(`Move "${event.title}" to ${dest} events?`)) return
+    const res = await fetch('/api/events/move', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: event.id, from: section }),
+    })
+    const { to } = await res.json()
+    setTab(to)
+    setForm(null)
+    fetchEvents()
+  }
+
   if (!authed) {
     return (
       <LoginScreen
@@ -396,12 +476,17 @@ export default function Admin() {
           }}>
             {events.upcoming.length === 0
               ? <EmptyState />
-              : events.upcoming.map(ev => (
+              : events.upcoming.map((ev, i, arr) => (
                 <UpcomingRow
                   key={ev.id}
                   event={ev}
+                  isFirst={i === 0}
+                  isLast={i === arr.length - 1}
+                  onMoveUp={() => reorderEvent('upcoming', ev.id, 'up')}
+                  onMoveDown={() => reorderEvent('upcoming', ev.id, 'down')}
                   onEdit={() => openEdit('upcoming', ev)}
                   onDelete={() => deleteEvent('upcoming', ev.id)}
+                  onMove={() => moveEvent('upcoming', ev)}
                 />
               ))
             }
@@ -413,12 +498,17 @@ export default function Admin() {
           <div>
             {events.past.length === 0
               ? <EmptyState />
-              : events.past.map(ev => (
+              : events.past.map((ev, i, arr) => (
                 <PastRow
                   key={ev.id}
                   event={ev}
+                  isFirst={i === 0}
+                  isLast={i === arr.length - 1}
+                  onMoveUp={() => reorderEvent('past', ev.id, 'up')}
+                  onMoveDown={() => reorderEvent('past', ev.id, 'down')}
                   onEdit={() => openEdit('past', ev)}
                   onDelete={() => deleteEvent('past', ev.id)}
+                  onMove={() => moveEvent('past', ev)}
                 />
               ))
             }

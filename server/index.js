@@ -87,5 +87,36 @@ app.delete('/api/events/past/:id', (req, res) => {
   res.json({ ok: true })
 })
 
+// Reorder events
+app.post('/api/events/:section/reorder', (req, res) => {
+  const { section } = req.params
+  if (!['upcoming', 'past'].includes(section)) return res.status(400).json({ error: 'Invalid section' })
+  const data = readData()
+  const map = Object.fromEntries(data[section].map(e => [e.id, e]))
+  data[section] = req.body.ids.map(id => map[id]).filter(Boolean)
+  writeData(data)
+  res.json({ ok: true })
+})
+
+// Move event between sections
+app.post('/api/events/move', (req, res) => {
+  const { id, from } = req.body
+  const to = from === 'upcoming' ? 'past' : 'upcoming'
+  const data = readData()
+
+  const idx = data[from].findIndex(e => e.id === id)
+  if (idx === -1) return res.status(404).json({ error: 'Not found' })
+
+  const event = data[from].splice(idx, 1)[0]
+
+  const moved = from === 'upcoming'
+    ? { id: event.id, year: event.date.year, title: event.title, location: event.location }
+    : { id: event.id, date: { day: '', month: 'Jan', year: event.year }, title: event.title, subtitle: '', location: event.location, desc: '', tag: 'Community' }
+
+  data[to].push(moved)
+  writeData(data)
+  res.json({ moved, to })
+})
+
 const PORT = 3001
 app.listen(PORT, () => console.log(`API server running on http://localhost:${PORT}`))

@@ -114,19 +114,34 @@ export default function Events() {
               >
                 {/* Date */}
                 <div style={{ textAlign: 'center', paddingTop: '4px' }}>
-                  <span style={{
-                    display: 'block',
-                    fontFamily: 'var(--font-serif)',
-                    fontSize: '2.8rem',
-                    color: 'var(--gold)',
-                    lineHeight: 1,
-                    marginBottom: '4px',
-                  }}>
-                    {date.day}
-                  </span>
-                  <span style={{ fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
-                    {date.month} {date.year}
-                  </span>
+                  {date.tbd ? (
+                    <span style={{
+                      display: 'block',
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: '1.6rem',
+                      color: 'var(--gold)',
+                      lineHeight: 1,
+                      letterSpacing: '0.08em',
+                    }}>
+                      TBD
+                    </span>
+                  ) : (
+                    <>
+                      <span style={{
+                        display: 'block',
+                        fontFamily: 'var(--font-serif)',
+                        fontSize: '2.8rem',
+                        color: 'var(--gold)',
+                        lineHeight: 1,
+                        marginBottom: '4px',
+                      }}>
+                        {date.day}
+                      </span>
+                      <span style={{ fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
+                        {date.month} {date.year}
+                      </span>
+                    </>
+                  )}
                 </div>
 
                 {/* Content */}
