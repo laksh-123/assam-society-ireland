@@ -1,0 +1,116 @@
+{
+  "upcoming": [
+    {
+      "id": "3",
+      "date": {
+        "day": "04",
+        "month": "Oct",
+        "year": "2026",
+        "tbd": true
+      },
+      "title": "Autumn Meet & Greet - 2026",
+      "subtitle": "Community Gathering",
+      "location": "TBD",
+      "desc": "An informal community gathering for Assamese across Ireland — food, conversation and the warm company of people who share your roots.",
+      "tag": "Community"
+    }
+  ],
+  "past": [
+    {
+      "id": "d009fa9f-1e38-44cb-977f-aa96a74a0741",
+      "year": "2026",
+      "title": "Rongali Bihu - 2026",
+      "location": "Dublin"
+    },
+    {
+      "id": "9d48c9a9-197f-47c4-a086-ac6877528cab",
+      "year": "2025",
+      "title": "Roi Roi Binale - Private Screening",
+      "location": "Dublin"
+    },
+    {
+      "id": "a88ec656-0b20-4e6a-89c9-d3db8c666887",
+      "year": "2025",
+      "title": "Bhaimon Da - Private Screening",
+      "location": "Dublin"
+    },
+    {
+      "id": "0a977217-05d4-4b97-8bac-e77c1a9ad922",
+      "year": "2025",
+      "title": "Rongali Bihu -2025",
+      "location": "Dublin"
+    },
+    {
+      "id": "02daeea4-f0be-4108-bce4-95dac9837d54",
+      "year": "2024",
+      "title": "Meet & Greet 2024",
+      "location": "Dublin"
+    },
+    {
+      "id": "5",
+      "year": "2024",
+      "title": "Rongali Bihu - 2024",
+      "location": "Dublin"
+    },
+    {
+      "id": "1",
+      "year": "2023",
+      "title": "Meet & Greet - 2023",
+      "location": "Dublin"
+    },
+    {
+      "id": "72ee74bf-ac85-490e-9bc6-683f04ffc4b9",
+      "year": "2023",
+      "title": "Rongali Bihu - 2023",
+      "location": "Dublin"
+    },
+    {
+      "id": "c47ab150-c476-493f-b22f-0f7ef66fe7a3",
+      "year": "2022",
+      "title": "Meet & Greet - 2022",
+      "location": "Dublin"
+    },
+    {
+      "id": "94ba5c20-95fb-42b5-984c-94137f25981a",
+      "year": "2022",
+      "title": "Rongali Bihu - 2022",
+      "location": "Dublin"
+    },
+    {
+      "id": "f13446de-33e1-420b-8737-736ff5a38d69",
+      "year": "2021",
+      "title": "Meet & Greet - 2021",
+      "location": "Dublin"
+    },
+    {
+      "id": "d14fe45e-bc7e-4cb0-b89b-1d0284dba3f8",
+      "year": "2021",
+      "title": "Rongali Bihu - 2021",
+      "location": "Online"
+    },
+    {
+      "id": "5405875e-dc9a-48a2-9134-5f1dd1d7fb2b",
+      "year": "2020",
+      "title": "Rongali Bihu - 2020",
+      "location": "Online"
+    },
+    {
+      "id": "0e2040bb-e6c0-4bc3-9ee3-eabd88be54c3",
+      "year": "2019",
+      "title": "Meet & Greet - 2019",
+      "location": "Dublin"
+    },
+    {
+      "id": "4fc9ab2d-d134-4760-a4a1-17a9b68933f6",
+      "year": "2019",
+      "title": "Rongali Bihu - 2019",
+      "location": "Dublin"
+    },
+    {
+      "id": "a5db6dcc-2c9a-44a8-ae9e-296db782dbb6",
+      "year": "2018",
+      "title": "Meet & Greet - 2018",
+      "location": "Dublin"
+    }
+  ]
+}
