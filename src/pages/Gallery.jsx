@@ -9,11 +9,12 @@ export default function Gallery() {
   const [activeIdx, setActiveIdx] = useState(null)
 
   useEffect(() => {
-    fetch('/api/gallery')
+    fetch('/gallery/index.json')
       .then(r => r.json())
       .then(setPhotos)
       .catch(() => {})
   }, [])
+
 
   function open(idx) {
     setActive(photos[idx])
@@ -105,29 +106,12 @@ export default function Gallery() {
                   style={{ position: 'relative', aspectRatio: '4/3', cursor: 'pointer', overflow: 'hidden', background: 'var(--surface)' }}
                 >
                   <img
-                    src={`/gallery/${photo.filename}`}
-                    alt={photo.caption || ''}
+                    src={`/gallery/${encodeURIComponent(photo.filename)}`}
+                    alt=""
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s ease' }}
                     onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
                     onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
                   />
-                  {photo.caption && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.25 }}
-                      style={{
-                        position: 'absolute', inset: 0,
-                        background: 'linear-gradient(to top, rgba(9,22,15,0.85) 0%, transparent 50%)',
-                        display: 'flex', alignItems: 'flex-end', padding: '20px',
-                        pointerEvents: 'none',
-                      }}
-                    >
-                      <p style={{ fontFamily: 'var(--font-serif)', fontSize: '1rem', color: 'var(--cream)' }}>
-                        {photo.caption}
-                      </p>
-                    </motion.div>
-                  )}
                 </motion.div>
               ))}
             </div>
@@ -177,18 +161,10 @@ export default function Gallery() {
               style={{ position: 'relative', maxWidth: '900px', width: '100%' }}
             >
               <img
-                src={`/gallery/${active.filename}`}
-                alt={active.caption || ''}
+                src={`/gallery/${encodeURIComponent(active.filename)}`}
+                alt=""
                 style={{ width: '100%', maxHeight: '80vh', objectFit: 'contain', display: 'block', borderRadius: '2px' }}
               />
-              {active.caption && (
-                <p style={{
-                  fontFamily: 'var(--font-serif)', fontSize: '1rem',
-                  color: 'var(--text-muted)', textAlign: 'center', marginTop: '16px',
-                }}>
-                  {active.caption}
-                </p>
-              )}
             </motion.div>
 
             {/* Next */}
