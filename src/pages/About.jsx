@@ -114,17 +114,19 @@ export default function About() {
               padding: '48px 40px',
             }}
           >
-            {/* Assam-Ireland visual motif */}
-            <div style={{ marginBottom: '32px', opacity: 0.6 }}>
-              <svg width="80" height="80" viewBox="0 0 80 80">
-                <circle cx="40" cy="40" r="36" fill="none" stroke="var(--gold)" strokeWidth="0.8" />
-                {[0, 60, 120, 180, 240, 300].map(a => (
-                  <ellipse key={a} cx="40" cy="40" rx="5" ry="14"
-                    fill="none" stroke="var(--gold)" strokeWidth="0.7"
-                    transform={`rotate(${a}, 40, 40) translate(0, -20)`} opacity="0.7" />
-                ))}
-                <circle cx="40" cy="40" r="4" fill="var(--gold)" opacity="0.6" />
-              </svg>
+            {/* Logo */}
+            <div style={{ marginBottom: '32px' }}>
+              <img
+                src="/logo.jpg"
+                alt="Assam Society of Ireland"
+                style={{
+                  width: '90px',
+                  height: '90px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  border: '1px solid rgba(196,149,58,0.4)',
+                }}
+              />
             </div>
             <p style={{ fontFamily: 'var(--font-serif)', fontSize: '1.3rem', color: 'var(--cream)', fontStyle: 'italic', lineHeight: 1.7 }}>
               Ireland, with its own deep traditions of storytelling, music and community,

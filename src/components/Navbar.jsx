@@ -11,14 +11,18 @@ const links = [
 ]
 
 const Logo = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style={{ flexShrink: 0 }}>
-    <ellipse cx="14" cy="14" rx="13" ry="13" stroke="var(--gold)" strokeWidth="0.8" />
-    <path d="M14 5 C17 5 21 8 20 14 C19 20 14 23 14 23 C14 23 9 20 8 14 C7 8 11 5 14 5 Z"
-      fill="none" stroke="var(--gold)" strokeWidth="0.8" />
-    <line x1="14" y1="5" x2="14" y2="23" stroke="var(--gold)" strokeWidth="0.5" />
-    <line x1="9.5" y1="12" x2="18.5" y2="12" stroke="var(--gold)" strokeWidth="0.5" />
-    <line x1="8.5" y1="16" x2="19.5" y2="16" stroke="var(--gold)" strokeWidth="0.5" />
-  </svg>
+  <img
+    src="/logo.jpg"
+    alt="Assam Society of Ireland"
+    style={{
+      width: '36px',
+      height: '36px',
+      borderRadius: '50%',
+      objectFit: 'cover',
+      border: '1px solid rgba(196, 149, 58, 0.5)',
+      flexShrink: 0,
+    }}
+  />
 )
 
 export default function Navbar() {

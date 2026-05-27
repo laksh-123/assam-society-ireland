@@ -93,22 +93,6 @@ export default function Home() {
           </div>
         ))}
 
-        {/* Celtic ring decoration */}
-        <div style={{ position: 'absolute', top: '12%', right: '8%', opacity: 0.06 }}>
-          <svg width="180" height="180" viewBox="0 0 180 180">
-            <circle cx="90" cy="90" r="80" fill="none" stroke="var(--gold)" strokeWidth="1" />
-            <circle cx="90" cy="90" r="60" fill="none" stroke="var(--gold)" strokeWidth="0.7" />
-            <circle cx="90" cy="90" r="40" fill="none" stroke="var(--gold)" strokeWidth="0.5" />
-            {[0, 45, 90, 135].map(angle => (
-              <line key={angle}
-                x1={90 + 80 * Math.cos(angle * Math.PI / 180)}
-                y1={90 + 80 * Math.sin(angle * Math.PI / 180)}
-                x2={90 + 80 * Math.cos((angle + 180) * Math.PI / 180)}
-                y2={90 + 80 * Math.sin((angle + 180) * Math.PI / 180)}
-                stroke="var(--gold)" strokeWidth="0.4" />
-            ))}
-          </svg>
-        </div>
 
         {/* Content */}
         <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', padding: '0 24px', maxWidth: '820px' }}>
@@ -270,42 +254,17 @@ export default function Home() {
             transition={{ duration: 0.8, ease, delay: 0.15 }}
             style={{ display: 'flex', justifyContent: 'center' }}
           >
-            <svg width="320" height="320" viewBox="0 0 320 320" style={{ opacity: 0.85 }}>
-              {/* Outer Celtic ring */}
-              <circle cx="160" cy="160" r="148" fill="none" stroke="var(--border)" strokeWidth="1" />
-              <circle cx="160" cy="160" r="120" fill="none" stroke="var(--border)" strokeWidth="0.8" />
-              {/* Cross lines */}
-              {[0, 30, 60, 90, 120, 150].map(a => (
-                <line key={a}
-                  x1={160 + 148 * Math.cos(a * Math.PI / 180)}
-                  y1={160 + 148 * Math.sin(a * Math.PI / 180)}
-                  x2={160 + 148 * Math.cos((a + 180) * Math.PI / 180)}
-                  y2={160 + 148 * Math.sin((a + 180) * Math.PI / 180)}
-                  stroke="var(--border)" strokeWidth="0.5" />
-              ))}
-              {/* Tea leaf cluster in centre */}
-              {[0, 72, 144, 216, 288].map((angle, i) => {
-                const r = 55
-                const cx = 160 + r * Math.cos((angle - 90) * Math.PI / 180)
-                const cy = 160 + r * Math.sin((angle - 90) * Math.PI / 180)
-                return (
-                  <ellipse key={i} cx={cx} cy={cy} rx="8" ry="18"
-                    fill="none" stroke="var(--gold)" strokeWidth="0.8"
-                    transform={`rotate(${angle}, ${cx}, ${cy})`}
-                    opacity="0.6" />
-                )
-              })}
-              {/* Centre dot */}
-              <circle cx="160" cy="160" r="5" fill="var(--gold)" opacity="0.8" />
-              <circle cx="160" cy="160" r="20" fill="none" stroke="var(--gold)" strokeWidth="0.6" opacity="0.4" />
-              {/* Compass points */}
-              {[0, 90, 180, 270].map(a => (
-                <circle key={a}
-                  cx={160 + 148 * Math.cos((a - 90) * Math.PI / 180)}
-                  cy={160 + 148 * Math.sin((a - 90) * Math.PI / 180)}
-                  r="3" fill="var(--gold)" opacity="0.5" />
-              ))}
-            </svg>
+            <img
+              src="/logo.jpg"
+              alt="Assam Society of Ireland"
+              style={{
+                width: '320px',
+                height: '320px',
+                borderRadius: '50%',
+                objectFit: 'cover',
+                border: '1px solid rgba(196,149,58,0.35)',
+              }}
+            />
           </motion.div>
         </div>
 

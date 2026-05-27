@@ -3,26 +3,12 @@ import { motion } from 'framer-motion'
 
 const ease = [0.16, 1, 0.3, 1]
 
-const DEFAULT_UPCOMING = [
-  { id: '1', date: { day: '13', month: 'Apr', year: '2025' }, title: 'Bohag Bihu 2025', subtitle: 'Spring Festival Celebration', location: 'The Mansion House, Dublin', desc: 'Our flagship annual event celebrating the Assamese New Year and the arrival of spring. Music, dance, traditional food and the joy of Bihu.', tag: 'Cultural Festival' },
-  { id: '2', date: { day: '19', month: 'Jul', year: '2025' }, title: 'Cultural Evening', subtitle: 'An Evening of Assamese Arts', location: 'National Concert Hall, Dublin', desc: 'A curated evening of Assamese classical music, Sattriya dance performances and storytelling — a night to share our heritage with Ireland.', tag: 'Arts' },
-  { id: '3', date: { day: '04', month: 'Oct', year: '2025' }, title: 'Community Gathering', subtitle: 'Autumn Meetup', location: 'Community Centre, Sandyford', desc: 'An informal community gathering for Assamese across Ireland — food, conversation and the warm company of people who share your roots.', tag: 'Community' },
-  { id: '4', date: { day: '20', month: 'Dec', year: '2025' }, title: 'Festive Season Celebration', subtitle: 'Winter Gathering', location: 'Dublin City, TBC', desc: 'Ring in the festive season together with Assamese food, music and the warmth of our growing community in Ireland.', tag: 'Seasonal' },
-]
-
-const DEFAULT_PAST = [
-  { id: '5', year: '2024', title: 'Bohag Bihu — Sold Out', location: 'Dublin' },
-  { id: '6', year: '2024', title: 'Cultural Night — Muga Silk Exhibition', location: 'Cork' },
-  { id: '7', year: '2023', title: 'Bohag Bihu — Inaugural Event', location: 'Dublin' },
-  { id: '8', year: '2023', title: 'Community Picnic', location: 'Phoenix Park, Dublin' },
-]
-
 export default function Events() {
-  const [upcoming, setUpcoming] = useState(DEFAULT_UPCOMING)
-  const [past, setPast] = useState(DEFAULT_PAST)
+  const [upcoming, setUpcoming] = useState([])
+  const [past, setPast] = useState([])
 
   useEffect(() => {
-    fetch('/api/events')
+    fetch('/events.json')
       .then(r => r.json())
       .then(data => {
         if (data.upcoming) setUpcoming(data.upcoming)

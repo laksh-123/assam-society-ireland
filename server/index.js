@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url'
 import { randomUUID } from 'crypto'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const DATA_FILE = path.join(__dirname, '../data/events.json')
+const DATA_FILE = path.join(__dirname, '../public/events.json')
 
 // Change this password to whatever you prefer
 const ADMIN_PASSWORD = 'assam2025'
@@ -85,6 +85,20 @@ app.delete('/api/events/past/:id', (req, res) => {
   data.past = data.past.filter(e => e.id !== req.params.id)
   writeData(data)
   res.json({ ok: true })
+})
+
+// Gallery — list all images in public/gallery/
+app.get('/api/gallery', (req, res) => {
+  const galleryDir = path.join(__dirname, '../public/gallery')
+  const exts = ['.jpg', '.jpeg', '.png', '.webp', '.gif']
+  try {
+    const files = fs.readdirSync(galleryDir)
+      .filter(f => exts.includes(path.extname(f).toLowerCase()))
+      .map(filename => ({ filename }))
+    res.json(files)
+  } catch {
+    res.json([])
+  }
 })
 
 // Reorder events
